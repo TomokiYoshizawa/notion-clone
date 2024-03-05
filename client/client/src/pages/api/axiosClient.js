@@ -9,7 +9,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   return {
-    config,
+    ...config,
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${getToke()}`,
