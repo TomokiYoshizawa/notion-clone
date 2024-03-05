@@ -6,10 +6,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
 import "./App.css";
+import { blue } from "@mui/material/colors";
 
 function App() {
   const theme = createTheme({
-    palette: { mode: "dark" },
+    palette: { primary: blue },
   });
 
   return (
