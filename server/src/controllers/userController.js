@@ -36,10 +36,12 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ username: username });
     if (!user) {
       return res.status(401).json({
-        errors: {
-          param: "username",
-          message: "Invalid username",
-        },
+        errors: [
+          {
+            param: "username",
+            msg: "Invalid username",
+          },
+        ],
       });
     }
 
@@ -51,10 +53,12 @@ exports.login = async (req, res) => {
 
     if (decryptedPassword !== password) {
       return res.status(401).json({
-        errors: {
-          param: "password",
-          message: "Invalid password",
-        },
+        errors: [
+          {
+            param: "password",
+            msg: "Invalid password",
+          },
+        ],
       });
     }
 
