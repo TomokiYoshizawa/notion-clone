@@ -10,9 +10,11 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import assets from "../../assets/color";
+import { useSelector as UseSelector } from "react-redux";
 
 function Sidebar() {
   const navigate = useNavigate();
+  const user = UseSelector((state) => state.user.value);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -42,7 +44,7 @@ function Sidebar() {
             }}
           >
             <Typography variant="body2" fontWeight="700">
-              Username here
+              {user.username}
             </Typography>
             <IconButton onClick={logout}>
               <LogoutIcon />

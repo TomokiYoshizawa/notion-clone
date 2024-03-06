@@ -2,11 +2,18 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import Box from "@mui/material/Box";
-
+import { useDispatch } from "react-redux";
 import authUtils from "../../utils/AuthUtils";
+
+declare module "../../utils/AuthUtils" {
+  // Add type declarations for the AuthUtils module exports here
+}
+
+import { setUser } from "../../redux/features/userSlice";
 
 function AppLayout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // chek if user has JWT
@@ -14,6 +21,9 @@ function AppLayout() {
       const user = await authUtils.isAuthenticated();
       if (!user) {
         navigate("/login");
+      } else {
+        //if user exists, save the user to the store
+        dispatch(setUser(user));
       }
     };
     checkAuth();
