@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://localhost:8080";
 const getToke = () => localStorage.getItem("token");
 
 const axiosClient = axios.create({
@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use(async (config) => {
 
 axiosClient.interceptors.response.use(
   (response) => {
-    return response;
+    return response.data;
   },
   (err) => {
     throw err.response;

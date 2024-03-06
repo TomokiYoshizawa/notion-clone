@@ -1,14 +1,17 @@
 import { Box, Button, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { Link } from "react-router-dom";
-import authApi from "./api/authApi.js";
+import { Link, useNavigate } from "react-router-dom";
+import authApi from "../api/authApi.js";
 import React from "react";
 import { useState } from "react";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,11 +44,11 @@ function Register() {
     }
     if (password !== confirmPassword) {
       error = true;
-      setUsernameErrText("Passwords do not match");
+      setConfirmPasswordErrText("Passwords do not match");
     }
-    if (error) {
-      return;
-    }
+    if (error) return;
+
+    setLoading(true);
 
     //registering API
     try {
@@ -54,10 +57,27 @@ function Register() {
         password,
         confirmPassword,
       });
-      localStorage.setItem("token", res.data.token);
+      setLoading(false);
+      localStorage.setItem("token", res.token);
       console.log("new user registered");
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      const errors = err.data.errors;
+
+      errors.forEach((err) => {
+        console.log(err);
+        if (err.path === "username") {
+          setUsernameErrText(err.msg);
+        }
+        if (err.path === "password") {
+          setPasswordErrText(err.msg);
+        }
+        if (err.path === "confirmPassword") {
+          setConfirmPasswordErrText(err.msg);
+        }
+        console.log(confirmPasswordErrText);
+      });
+      setLoading(false);
     }
   };
 
@@ -71,8 +91,9 @@ function Register() {
           margin="normal"
           name="username"
           required
-          helperText={usernameErrText}
           error={usernameErrText !== ""}
+          helperText={usernameErrText}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -84,6 +105,7 @@ function Register() {
           required
           helperText={passwordErrText}
           error={passwordErrText !== ""}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -95,6 +117,7 @@ function Register() {
           required
           helperText={confirmPasswordErrText}
           error={confirmPasswordErrText !== ""}
+          disabled={loading}
         />
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
