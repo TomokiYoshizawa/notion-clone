@@ -2,7 +2,6 @@ import { Box, Button, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../api/authApi.js";
-import React from "react";
 import { useState } from "react";
 
 function Register() {

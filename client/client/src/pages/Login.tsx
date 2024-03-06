@@ -19,8 +19,8 @@ function Login() {
 
     //get the form data
     const data = new FormData(e.target);
-    const username = (data.get("username")?.trim() || "") as string;
-    const password = (data.get("password")?.trim() || "") as string;
+    const username = (data.get("username")?.toString().trim() || "") as string;
+    const password = (data.get("password")?.toString().trim() || "") as string;
 
     let error = false;
 
