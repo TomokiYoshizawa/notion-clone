@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import Memo from "./pages/Memo";
 
 import "./App.css";
 import { blue } from "@mui/material/colors";
@@ -28,7 +29,7 @@ function App() {
             <Route path="/" element={<AppLayout />}>
               <Route index element={<Home />}></Route>
               <Route path="memo" element={<Home />}></Route>
-              {/* <Route element={<Memo/>}></Route> */}
+              <Route path="memo/:memoId" element={<Memo />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

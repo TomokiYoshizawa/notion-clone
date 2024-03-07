@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Container } from "@mui/material";
@@ -10,7 +10,7 @@ function AuthLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // chek if user has JWT
+    // check if user has JWT
     const checkAuth = async () => {
       const isAuth = await authUtils.isAuthenticated();
       if (isAuth) {
