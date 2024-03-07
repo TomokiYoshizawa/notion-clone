@@ -17,6 +17,7 @@ import memoApi from "../../api/memoApi";
 import { useDispatch } from "react-redux";
 import { setMemo } from "../../redux/features/memoSlice";
 
+// test
 function Sidebar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
