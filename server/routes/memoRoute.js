@@ -10,4 +10,9 @@ router.get("/", tokenHandler.verifyToken, memoController.getALL);
 // get one memos from a use logged in
 router.get("/:memoId", tokenHandler.verifyToken, memoController.getOne);
 
+// update one memos from a use logged in
+router.put("/:memoId", tokenHandler.verifyToken, memoController.updateOne);
+
+router.delete("/:memoId", tokenHandler.verifyToken, memoController.deleteOne);
+
 module.exports = router;
